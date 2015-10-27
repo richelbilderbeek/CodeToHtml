@@ -1,11 +1,11 @@
 INCLUDEPATH += \
-    ../../Tools/ToolCodeToHtml
+    ../CodeToHtml
 
 SOURCES += \
-    ../../Tools/ToolCodeToHtml/codetohtmlmenudialog.cpp
+    ../CodeToHtml/codetohtmlmenudialog.cpp
 
 HEADERS += \
-    ../../Tools/ToolCodeToHtml/codetohtmlmenudialog.h
+    ../CodeToHtml/codetohtmlmenudialog.h
 
 OTHER_FILES += \
-    ../../Tools/ToolCodeToHtml/Licence.txt
+    ../CodeToHtml/Licence.txt
