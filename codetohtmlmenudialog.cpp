@@ -39,7 +39,6 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 #include "qrcfile.h"
 #include "qtcreatorprofile.h"
 #include "testtimer.h"
-#include "richelbilderbeekprogram.h"
 #include "trace.h"
 #pragma GCC diagnostic pop
 
@@ -188,16 +187,10 @@ ribi::Help ribi::c2h::CodeToHtmlMenuDialog::GetHelp() const noexcept
   );
 }
 
-boost::shared_ptr<const ribi::Program> ribi::c2h::CodeToHtmlMenuDialog::GetProgram() const noexcept
-{
-  const boost::shared_ptr<const ribi::Program> p(new ProgramCodeToHtml);
-  assert(p);
-  return p;
-}
 
 std::string ribi::c2h::CodeToHtmlMenuDialog::GetVersion() const noexcept
 {
-  return "3.3";
+  return "4.0";
 }
 
 std::vector<std::string> ribi::c2h::CodeToHtmlMenuDialog::GetVersionHistory() const noexcept
@@ -236,13 +229,14 @@ std::vector<std::string> ribi::c2h::CodeToHtmlMenuDialog::GetVersionHistory() co
     "2013-05-19: version 2.5: +3400 replacements, following architectural changes in QtCreatorProFile and QtCreatorProFileZipScript",
     "2013-08-19: version 2.6: replaced Boost.Filesystem and Boost.Regex by Qt and Boost.Xpressive, added tests, added +5000 lines of CodeToHtml info",
     "2013-09-05: version 2.7: transition to namespace ribi",
-    "2013-09-17: version 2.8: compile with -Weffc++, fixed bug due to this, removed recursive replacements, cleaned info, do tests at run-time, added reading .pri files"
-    "2013-09-26: version 2.9: use of boost::checked_delete on all classes, removed use of Boost.Program_options"
+    "2013-09-17: version 2.8: compile with -Weffc++, fixed bug due to this, removed recursive replacements, cleaned info, do tests at run-time, added reading .pri files",
+    "2013-09-26: version 2.9: use of boost::checked_delete on all classes, removed use of Boost.Program_options",
     "2013-10-25: version 2.10: console application callable from ProjectRichelBilderbeek",
     "2013-11-26: version 3.0: improved interface and architecture, support for OpenFOAM projects",
     "2014-04-27: version 3.1: prevents huge HTML file creation",
     "2014-07-16: version 3.2: 4000 replacements, increased use of C++11, link std::x to CppStdX.htm",
-    "2014-08-11: version 3.3: increased use of TDD"
+    "2014-08-11: version 3.3: increased use of TDD",
+    "2016-01-02: version 4.0: moved to own GitHub",
   };
   return v;
 }
@@ -275,38 +269,3 @@ void ribi::c2h::CodeToHtmlMenuDialog::Test() noexcept
   }
 }
 #endif
-
-void ribi::c2h::CodeToHtmlMenuDialog::TestAllProgramsHaveInfo() noexcept
-{
-  //Every Program must have some CodeToHtml info
-  const std::vector<boost::shared_ptr<Program> > programs { Program::GetAllPrograms() };
-  std::vector<std::string> pagenames;
-  std::transform(programs.begin(),programs.end(),std::back_inserter(pagenames),
-    [](const boost::shared_ptr<Program> program)
-    {
-      const std::string s = program->GetUrl();
-      assert(s.substr(s.size() - 4, 4) == ".htm");
-      const std::string t = s.substr(0,s.size() - 4);
-      return t;
-    }
-  );
-
-  for (const std::string pagename: pagenames)
-  {
-    const boost::shared_ptr<const c2h::Info> info(new c2h::Info);
-    const std::vector<std::string> html {
-      info->ToHtml(pagename)
-    };
-    assert(!html.empty());
-    const std::string no_info_str = "<!-- No CodeToHtmlInfo about this class";
-    const std::string html_str = html[0];
-    if(html_str.substr(0,no_info_str.size()) == no_info_str)
-    {
-      TRACE("ERROR");
-      TRACE("No info for page:");
-      TRACE(pagename);
-    }
-    assert(html_str.substr(0,no_info_str.size()) != no_info_str
-      && "For every programType there must be HTML info");
-  }
-}

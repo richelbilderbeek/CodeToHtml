@@ -6,6 +6,3 @@ SOURCES += \
 
 HEADERS += \
     ../CodeToHtml/codetohtmlmenudialog.h
-
-OTHER_FILES += \
-    ../CodeToHtml/Licence.txt

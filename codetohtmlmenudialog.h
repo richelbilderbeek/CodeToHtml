@@ -37,12 +37,9 @@ struct CodeToHtmlMenuDialog final : public MenuDialog
   ~CodeToHtmlMenuDialog() noexcept {}
   About GetAbout() const noexcept override;
   Help GetHelp() const noexcept override;
-  boost::shared_ptr<const Program> GetProgram() const noexcept override;
   std::string GetVersion() const noexcept override;
 
   std::vector<std::string> GetVersionHistory() const noexcept override;
-
-  static void TestAllProgramsHaveInfo() noexcept;
 
   private:
   int ExecuteSpecific(const std::vector<std::string>& argv) noexcept override;
