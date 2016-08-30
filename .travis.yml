@@ -29,7 +29,7 @@ before_script:
 script: 
   - ./build_console.sh
   - ./build_desktop.sh
-  - ./LizardPaperRockScissorsSpockConsole --about
+  - ./CodeToHtmlConsole --about
   - ./get_code_cov.sh
   - codecov
   - ./do_oclint.sh

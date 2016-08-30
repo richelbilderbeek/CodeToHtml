@@ -1,8 +1,7 @@
-INCLUDEPATH += \
-    ../CodeToHtml
+INCLUDEPATH += $$PWD
 
 SOURCES += \
-    ../CodeToHtml/codetohtmlmenudialog.cpp
+    $$PWD/codetohtmlmenudialog.cpp
 
 HEADERS += \
-    ../CodeToHtml/codetohtmlmenudialog.h
+    $$PWD/codetohtmlmenudialog.h
