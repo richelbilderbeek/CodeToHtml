@@ -16,3 +16,9 @@ include(../../Classes/CppQtCreatorProFile/CppQtCreatorProFile.pri)
 include(ToolCodeToHtmlWebsite.pri)
 
 SOURCES += wtmain.cpp
+
+# Fixes
+#/usr/include/boost/math/constants/constants.hpp:277: error: unable to find numeric literal operator 'operator""Q'
+#   BOOST_DEFINE_MATH_CONSTANT(half, 5.000000000000000000000000000000000000e-01, "5.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e-01")
+#   ^
+QMAKE_CXXFLAGS += -fext-numeric-literals
