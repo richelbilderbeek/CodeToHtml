@@ -23,8 +23,8 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 #include <cassert>
 
 #include "codetohtmlreplacements.h"
-#include "testtimer.h"
-#include "trace.h"
+
+
 
 boost::scoped_ptr<const ribi::c2h::Replacements> ribi::c2h::Replacer::m_replacements_cpp {};
 boost::scoped_ptr<const ribi::c2h::Replacements> ribi::c2h::Replacer::m_replacements_pro {};
@@ -76,9 +76,6 @@ const ribi::c2h::Replacements& ribi::c2h::Replacer::GetReplacementsTxt()
 std::string ribi::c2h::Replacer::MultiReplace(const std::string& line, const std::vector<std::pair<std::string,std::string> >& replacements)
 {
   std::string s(line);
-  #ifdef DEBUG_PROGRAM_HANGS
-  { const std::string debug_str = "Before: " + s; TRACE(debug_str); }
-  #endif
   typedef std::vector<std::pair<std::string,std::string> >::const_iterator Iterator;
   const Iterator j = replacements.end();
   for (Iterator i = replacements.begin(); i!=j; ++i)
@@ -116,7 +113,7 @@ void ribi::c2h::Replacer::Test() noexcept
   Replacer().GetReplacementsCpp();
   Replacer().GetReplacementsPro();
   Replacer().GetReplacementsTxt();
-  const TestTimer test_timer(__func__,__FILE__,1.0);
+
 
   //Test for correct replacements
   {
@@ -138,12 +135,6 @@ void ribi::c2h::Replacer::Test() noexcept
         const std::string& s = p.first;
         const std::string t = Replacer().MultiReplace(s,GetReplacementsCpp().Get());
         const std::string expected = p.second;
-        if (t != expected)
-        {
-          TRACE("ERROR");
-          TRACE(expected);
-          TRACE(t);
-        }
         assert(t == expected);
       }
     );

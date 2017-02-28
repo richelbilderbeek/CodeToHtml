@@ -38,8 +38,8 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 #include "fileio.h"
 #include "qrcfile.h"
 #include "qtcreatorprofile.h"
-#include "testtimer.h"
-#include "trace.h"
+
+
 #pragma GCC diagnostic pop
 
 ribi::c2h::CodeToHtmlMenuDialog::CodeToHtmlMenuDialog()
@@ -168,7 +168,6 @@ ribi::About ribi::c2h::CodeToHtmlMenuDialog::GetAbout() const noexcept
   a.AddLibrary("QrcFile version: " + QrcFile::GetVersion());
   a.AddLibrary("QtCreatorProFile version: " + QtCreatorProFile::GetVersion());
   a.AddLibrary("TestTimer version: " + TestTimer::GetVersion());
-  a.AddLibrary("Trace version: " + Trace::GetVersion());
   a.AddLibrary("HTML Tidy for Linux/x86 released on 25 March 2009");
   return a;
 }
@@ -256,7 +255,7 @@ void ribi::c2h::CodeToHtmlMenuDialog::Test() noexcept
     try {  boost::shared_ptr<QtCreatorProFile> p{new QtCreatorProFile("")}; } catch(std::logic_error&) { /* OK */ };
     ribi::c2h::Dialog();
   }
-  const TestTimer test_timer(__func__,__FILE__,1.0);
+
   {
     const boost::shared_ptr<const c2h::Info> info(new c2h::Info);
     const std::vector<std::string> html {

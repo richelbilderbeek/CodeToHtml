@@ -22,7 +22,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 #include <cassert>
 
-#include "trace.h"
+
 
 const std::vector<std::pair<std::string,std::string> > ribi::c2h::Replacer::CreateCppReplacements() noexcept
 {

@@ -27,7 +27,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 #include "codetohtmlversion.h"
 #include "fileio.h"
 #include "qtcreatorprofile.h"
-#include "trace.h"
+
 #pragma GCC diagnostic pop
 
 ribi::c2h::TechInfo::TechInfo(const std::vector<std::string>& profile_filenames)

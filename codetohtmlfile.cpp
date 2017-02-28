@@ -34,8 +34,8 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 #include "codetohtmlreplacements.h"
 #include "codetohtmlreplacer.h"
 #include "fileio.h"
-#include "testtimer.h"
-#include "trace.h"
+
+
 #pragma GCC diagnostic pop
 
 #define PROGRAM_HANGS
@@ -147,6 +147,6 @@ void ribi::c2h::File::Test() noexcept
   }
   ribi::fileio::FileIo();
   Replacer();
-  const TestTimer test_timer(__func__,__FILE__,1.0);
+  
 }
 #endif

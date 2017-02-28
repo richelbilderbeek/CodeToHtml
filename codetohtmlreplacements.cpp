@@ -27,7 +27,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 #include <iostream>
 #include <set>
 
-#include "trace.h"
+
 #pragma GCC diagnostic pop
 
 ribi::c2h::Replacements::Replacements(
@@ -60,10 +60,10 @@ ribi::c2h::Replacements::Replacements(
         std::search(p.second.begin(),p.second.end(),p.first.begin(),p.first.end())
         == p.second.end()))
       {
-        TRACE("Recurring replacement detected:")
-        TRACE(p.first);
-        TRACE(p.second);
-        TRACE("Add $ symbols in the second part, so that the first part is not a subsequence of it")
+        std::cerr << "Recurring replacement detected:";
+        std::cerr << p.first;
+        std::cerr << p.second;
+        std::cerr << "Add $ symbols in the second part, so that the first part is not a subsequence of it";
       }
 
       assert(
@@ -83,9 +83,9 @@ ribi::c2h::Replacements::Replacements(
         if ((*i).first == "$") continue;
         if ((*i).first == (*j).first)
         {
-          TRACE("ERROR: duplicate in replacements");
-          TRACE("Remove the duplicate from codetohtmlreplacementscpp.cpp or codetohtmlreplacementspro.cpp");
-          TRACE((*i).first);
+          std::cerr << "ERROR: duplicate in replacements";
+          std::cerr << "Remove the duplicate from codetohtmlreplacementscpp.cpp or codetohtmlreplacementspro.cpp";
+          std::cerr << (*i).first;
         }
         assert((*i).first != (*j).first);
       }

@@ -1,23 +1,3 @@
-//---------------------------------------------------------------------------
-/*
-CodeToHtml, converts C++ code to HTML
-Copyright (C) 2010-2015 Richel Bilderbeek
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.If not, see <http://www.gnu.org/licenses/>.
-*/
-//---------------------------------------------------------------------------
-//From http://www.richelbilderbeek.nl/ToolCodeToHtml.htm
-//---------------------------------------------------------------------------
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Weffc++"
 #pragma GCC diagnostic ignored "-Wunused-local-typedefs"
@@ -40,13 +20,13 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 #include "codetohtmlfooter.h"
 #include "codetohtmlheader.h"
 #include "codetohtmlreplacer.h"
-#include "testtimer.h"
+
 #include "codetohtmlsnippettype.h"
 #include "codetohtmltechinfo.h"
 #include "fileio.h"
 #include "qtcreatorprofile.h"
 #include "qtcreatorprofilezipscript.h"
-#include "trace.h"
+
 
 #pragma GCC diagnostic pop
 
@@ -68,34 +48,14 @@ bool ribi::c2h::IsCleanHtml(const std::vector<std::string>& html)
     assert(ribi::fileio::FileIo().IsRegularFile(temp_filename));
     const std::string command = "tidy -q -e -f " + temp_filename_tidy + " " + temp_filename;
     const int error = std::system(command.c_str());
-    /*
-    if (error && html[5] != " <title>XXX</title>")
-    {
-      TRACE("Dear assert, check tmp.htm, as this is the HTML tidy failed on");
-      TRACE(command);
-      TRACE(error);
-      #ifndef NDEBUG
-      for (const std::string& s: FileToVector(temp_filename_tidy))
-      {
-        TRACE(s);
-      }
-      #endif
-      assert(!error || html[5] != " <title>XXX</title>");
-      return false;
-    }
-    assert(!error);
-    assert(IsRegularFile(temp_filename_tidy));
-    */
     if (error) return false;
   }
   const auto v = ribi::fileio::FileIo().FileToVector(temp_filename_tidy);
-
-
   if (v.size() > 1)
   {
-    TRACE("Errors found by Tidy, check the following files:");
-    TRACE(temp_filename);
-    TRACE(temp_filename_tidy);
+    std::cerr << "Errors found by Tidy, check the following files:";
+    std::cerr << temp_filename;
+    std::cerr << temp_filename_tidy;
     return false;
   }
   fileio::FileIo().DeleteFile(temp_filename.c_str());
@@ -134,7 +94,7 @@ void ribi::c2h::Test()
     if (is_tested) return;
     is_tested = true;
   }
-  const TestTimer test_timer(__func__,__FILE__,1.0);
+
   //Test SortedFiles
   {
     const std::vector<std::string> result

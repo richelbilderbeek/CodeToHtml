@@ -50,8 +50,8 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 #include "codetohtmlreplacer.h"
 #include "codetohtmlversion.h"
 #include "fileio.h"
-#include "testtimer.h"
-#include "trace.h"
+
+
 #pragma GCC diagnostic pop
 
 ribi::c2h::Dialog::Dialog() noexcept
@@ -132,16 +132,6 @@ std::string ribi::c2h::Dialog::ExtractPageName(const std::string& s) const noexc
     else break;
   }
 
-  #ifdef REALLY_TRACE_THIS_20130929_28764723047972338294764627389
-  const std::size_t sz = v.size();
-  TRACE(sz);
-  for (std::size_t i=0; i!=sz; ++i)
-  {
-    std::stringstream s;
-    s << i << '/' << sz << ": '" << v[i] << "'";
-    TRACE(s.str());
-  }
-  #endif
   const std::string t = v.empty() ? std::string() : v[v.size() - 1];
 
 
@@ -166,7 +156,6 @@ std::string ribi::c2h::Dialog::ExtractPageName(const std::string& s) const noexc
     {
       std::stringstream s;
       s << i << "/" << sz << ": '" << what[i] << "'";
-      TRACE(s.str());
     }
     t = what[1];
   }
@@ -247,7 +236,6 @@ std::vector<std::string> ribi::c2h::Dialog::ProFolderToHtml(
     #ifndef NDEBUG
     for (const std::string& pro_file: pro_files)
     {
-      if (!ribi::fileio::FileIo().IsRegularFile(pro_file)) { TRACE(pro_file); }
       assert(ribi::fileio::FileIo().IsRegularFile(pro_file));
     }
     #endif
@@ -276,10 +264,6 @@ std::vector<std::string> ribi::c2h::Dialog::ProFolderToHtml(
         const std::string t {
           foldername + fileio::FileIo().GetPathSeperator() + s
         };
-        if (!ribi::fileio::FileIo().IsRegularFile(t))
-        {
-          TRACE("ERROR"); TRACE(s); TRACE(foldername); TRACE(t);
-        }
         assert(ribi::fileio::FileIo().IsRegularFile(t));
         return t;
       }
@@ -343,13 +327,6 @@ std::vector<std::string> ribi::c2h::Dialog::TextFolderToHtml(
           + ribi::fileio::FileIo().GetPathSeperator()
           + s
         };
-        #ifndef NDEBUG
-        if(!ribi::fileio::FileIo().IsRegularFile(t))
-        {
-          TRACE("ERROR");
-          TRACE(foldername); TRACE(s); TRACE(t);
-        }
-        #endif
         assert(ribi::fileio::FileIo().IsRegularFile(t));
         return t;
       }
@@ -358,7 +335,6 @@ std::vector<std::string> ribi::c2h::Dialog::TextFolderToHtml(
     #ifndef NDEBUG
     for (const std::string& file: files)
     {
-      if (!ribi::fileio::FileIo().IsRegularFile(file)) { TRACE(file); }
       assert(ribi::fileio::FileIo().IsRegularFile(file));
     }
     #endif
@@ -401,7 +377,7 @@ void ribi::c2h::Dialog::Test() noexcept
     const auto file = boost::make_shared<File>(tmp);
     fileio::FileIo().DeleteFile(tmp);
   }
-  const TestTimer test_timer(__func__,__FILE__,2.0);
+
   const Dialog d;
 
   assert(d.ExtractPageName("X") == "X");
@@ -513,12 +489,12 @@ void ribi::c2h::Dialog::Test() noexcept
     }
     else
     {
-      TRACE("Warning: CodeToHtml has not tested itself on its own code upon construction");
+      std::clog << "Warning: CodeToHtml has not tested itself on its own code upon construction";
     }
   }
   else
   {
-    TRACE("WARNING: 'tidy' not found, check if CodeToHtml generates clean HTML code is skipped");
+    std::clog << "WARNING: 'tidy' not found, check if CodeToHtml generates clean HTML code is skipped";
   }
   if (IsTidyInstalled())
   {
@@ -547,12 +523,12 @@ void ribi::c2h::Dialog::Test() noexcept
     }
     else
     {
-      TRACE("Warning: CodeToHtml has not tested itself on its own code upon construction");
+      std::clog << "Warning: CodeToHtml has not tested itself on its own code upon construction";
     }
   }
   else
   {
-    TRACE("WARNING: 'tidy' not found, check if CodeToHtml generates clean HTML code is skipped");
+    std::clog << "WARNING: 'tidy' not found, check if CodeToHtml generates clean HTML code is skipped";
   }
   #endif
 }
