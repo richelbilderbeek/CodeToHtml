@@ -21,13 +21,13 @@ install:
   - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
   # C++14
   - sudo apt-get install -qq g++-5
-  - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90
   # Codecov
+  - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90
   - sudo pip install codecov
   # OCLint
   - ./install_oclint
   # Prerequisites
-  - ./download_other_githubs.sh
+  - ./download_other_githubs
 
 # Start virtual X server, from https://docs.travis-ci.com/user/gui-and-headless-browsers/
 before_script:
