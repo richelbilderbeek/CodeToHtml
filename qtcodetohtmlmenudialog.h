@@ -54,9 +54,6 @@ private slots:
   void on_button_quit_clicked() noexcept;
   void on_button_start_clicked() noexcept;
 
-  #ifndef NDEBUG
-  static void Test() noexcept;
-  #endif
   void on_button_test_1_clicked();
   void on_button_test_2_clicked();
   void on_button_test_3_clicked();

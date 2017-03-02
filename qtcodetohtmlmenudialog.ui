@@ -19,7 +19,7 @@
    <string>CodeToHtml</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="ToolCodeToHtml.qrc">
+   <iconset resource="CodeToHtml.qrc">
     <normaloff>:/images/R.png</normaloff>:/images/R.png</iconset>
   </property>
   <property name="styleSheet">
@@ -37,7 +37,7 @@ QPushButton { font: 48px &quot;Courier New&quot;, courier, monospace }</string>
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="ToolCodeToHtml.qrc">:/images/ToolCodeToHtmlHelloWorld.png</pixmap>
+      <pixmap>:/images/ToolCodeToHtmlHelloWorld.png</pixmap>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -124,7 +124,7 @@ QPushButton { font: 48px &quot;Courier New&quot;, courier, monospace }</string>
   <tabstop>button_quit</tabstop>
  </tabstops>
  <resources>
-  <include location="ToolCodeToHtml.qrc"/>
+  <include location="CodeToHtml.qrc"/>
  </resources>
  <connections/>
 </ui>
