@@ -49,8 +49,7 @@ script:
   - ./get_code_cov
   - codecov
   # Call OCLint
-  - echo "Do not care about OCLint for this program now"
-  # - ./do_oclint
+  - ./do_oclint
 
 after_success: 
   - bash <(curl -s https://codecov.io/bash)
