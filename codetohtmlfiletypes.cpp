@@ -35,9 +35,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 ribi::c2h::FileTypes::FileTypes()
 {
-  #ifndef NDEBUG
-  Test();
-  #endif
+
 }
 
 bool ribi::c2h::FileTypes::CanStrToFileType(const std::string& s) const noexcept
@@ -154,45 +152,3 @@ ribi::c2h::FileType ribi::c2h::FileTypes::StrToFileType(const std::string& s) co
   assert(!"StrToFileType: should not get here");
   throw std::logic_error("Invalid string in StrToFileType");
 }
-
-#ifndef NDEBUG
-void ribi::c2h::FileTypes::Test() noexcept
-{
-  {
-    static bool is_tested{false};
-    if (is_tested) return;
-    is_tested = true;
-  }
-  
-  FileTypes f;
-  //Test conversion between
-  {
-    const auto v = f.GetAllFileTypes();
-    for (const auto& t:v)
-    {
-      assert(f.StrToFileType(f.FileTypeToStr(t)) == t);
-    }
-  }
-  //Be gentle
-  assert(f.DeduceFileType("tmp.png") == FileType::png);
-  assert(f.DeduceFileType("tmp.pro") == FileType::pro);
-  assert(f.DeduceFileType("tmp.c"  ) == FileType::cpp);
-  assert(f.DeduceFileType("tmp.cpp") == FileType::cpp);
-  assert(f.DeduceFileType("tmp.h"  ) == FileType::cpp);
-  assert(f.DeduceFileType("tmp.hpp") == FileType::cpp);
-  assert(f.DeduceFileType("tmp.sh" ) == FileType::sh);
-  assert(f.DeduceFileType("tmp.txt") == FileType::txt);
-  assert(f.DeduceFileType("tmp.py" ) == FileType::py);
-  assert(f.DeduceFileType("tmp.xyz") == FileType::txt);
-  //Be nasty
-  assert(f.DeduceFileType("cpp.pro") == FileType::pro);
-  assert(f.DeduceFileType("h.c"    ) == FileType::cpp);
-  assert(f.DeduceFileType("hpp.cpp") == FileType::cpp);
-  assert(f.DeduceFileType("sh.h"   ) == FileType::cpp);
-  assert(f.DeduceFileType("txt.hpp") == FileType::cpp);
-  assert(f.DeduceFileType("py.sh"  ) == FileType::sh);
-  assert(f.DeduceFileType("xyz.txt") == FileType::txt);
-  assert(f.DeduceFileType("pro.py" ) == FileType::py);
-  assert(f.DeduceFileType("c.xyz"  ) == FileType::txt);
-}
-#endif

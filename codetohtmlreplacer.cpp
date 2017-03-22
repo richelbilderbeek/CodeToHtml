@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "codetohtmlreplacements.h"
+#include "codetohtmlreplacer.h"
 
 
 
@@ -15,9 +16,7 @@ boost::scoped_ptr<const ribi::c2h::Replacements> ribi::c2h::Replacer::m_replacem
 
 ribi::c2h::Replacer::Replacer()
 {
-  #ifndef NDEBUG
-  Test();
-  #endif
+
 }
 
 const ribi::c2h::Replacements& ribi::c2h::Replacer::GetReplacementsCpp()
@@ -26,7 +25,7 @@ const ribi::c2h::Replacements& ribi::c2h::Replacer::GetReplacementsCpp()
   {
     m_replacements_cpp.reset(
       new Replacements(
-        ribi::c2h::Replacer::CreateCppReplacements()));
+        ribi::c2h::CreateCppReplacements()));
   }
   assert(m_replacements_cpp);
   return *m_replacements_cpp;
@@ -38,7 +37,7 @@ const ribi::c2h::Replacements& ribi::c2h::Replacer::GetReplacementsPro()
   {
     m_replacements_pro.reset(
       new Replacements(
-        ribi::c2h::Replacer::CreateProReplacements()));
+        ribi::c2h::CreateProReplacements()));
   }
   assert(m_replacements_pro);
   return *m_replacements_pro;
@@ -84,56 +83,6 @@ std::string ribi::c2h::Replacer::ReplaceAll(
   }
   return s;
 }
-
-#ifndef NDEBUG
-void ribi::c2h::Replacer::Test() noexcept
-{
-  {
-    static bool is_tested{false};
-    if (is_tested) return;
-    is_tested = true;
-  }
-  Replacer().GetReplacementsCpp();
-  Replacer().GetReplacementsPro();
-  Replacer().GetReplacementsTxt();
-
-
-  //Test for correct replacements
-  {
-    const std::vector<std::pair<std::string,std::string> > v {
-      { "C++ Builder", "<a href=\"CppBuilder.htm\">C++ Builder</a>" },
-      { "BeerWanter", "<a href=\"GameBeerWanter.htm\">BeerWanter</a>" },
-      { "int main()", "<b><a href=\"CppInt.htm\">int</a></b> <a href=\"CppMain.htm\">main</a>()" },
-      { "boenken", "<a href=\"GameBoenken.htm\">boenken</a>" },
-      { "; ++i)", "; <a href=\"CppOperatorIncrement.htm\">++</a>i)" },
-      { "C++11", "<a href=\"Cpp11.htm\">C++11</a>" },
-      { "C++0x", "<a href=\"Cpp0x.htm\">C++0x</a>" },
-      { "C++", "<a href=\"Cpp.htm\">C++</a>" },
-      { "++", "<a href=\"CppOperatorIncrement.htm\">++</a>" },
-      { "--", "<a href=\"CppOperatorDecrement.htm\">--</a>" }
-    };
-    std::for_each(v.begin(),v.end(),
-      [](const std::pair<std::string,std::string>& p)
-      {
-        const std::string& s = p.first;
-        const std::string t = Replacer().MultiReplace(s,GetReplacementsCpp().Get());
-        const std::string expected = p.second;
-        assert(t == expected);
-      }
-    );
-  }
-  {
-    std::stringstream s;
-    s << "Number of C++ replacements: " << Replacer().GetReplacementsCpp().Get().size();
-    std::clog << s.str();
-  }
-  {
-    std::stringstream s;
-    s << "Number of .pro file replacements: " << Replacer().GetReplacementsPro().Get().size();
-    std::clog << s.str();
-  }
-}
-#endif
 
 std::vector<std::string> ribi::c2h::Replacer::ToHtml(
   const std::vector<std::string>& text,

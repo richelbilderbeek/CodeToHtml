@@ -19,9 +19,7 @@
 ribi::c2h::Info::Info()
   : m_page_info(CreatePageInfo())
 {
-  #ifndef NDEBUG
-  Test();
-  #endif
+
 }
 
 std::map<std::string,std::vector<std::string> > ribi::c2h::Info::CreatePageInfo()
@@ -19586,18 +19584,6 @@ std::vector<std::string> ribi::c2h::Info::GetVersionHistory() noexcept
     "2014-07-16: version 1.2: let std::x go to page CppStdX.htm, 4000 C++ replacements"
   };
 }
-
-#ifndef NDEBUG
-void ribi::c2h::Info::Test() noexcept
-{
-  {
-    static bool is_tested{false};
-    if (is_tested) return;
-    is_tested = true;
-  }
-
-}
-#endif
 
 void ribi::c2h::Info::TestIfAllCreatedPagesAreValid() noexcept
 {

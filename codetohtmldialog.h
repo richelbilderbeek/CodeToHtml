@@ -63,7 +63,6 @@ struct Dialog
     const SnippetType snippet_type
   ) const noexcept;
 
-  private:
   ///Extract the page name, from, for example
   /// '/home/richel/ProjectRichelBilderbeek/Tools/ToolCodeToHtml'
   /// to 'ToolCodeToHtml'
@@ -79,11 +78,6 @@ struct Dialog
   std::vector<std::string> TextFolderToHtml(
     const std::string& folder_name
     ) const noexcept;
-
-  #ifndef NDEBUG
-  static void Test() noexcept;
-  #endif
-
 };
 
 } //~namespace c2h

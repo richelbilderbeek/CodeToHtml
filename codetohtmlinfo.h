@@ -62,12 +62,6 @@ struct Info
 
   //From http://www.richelbilderbeek.nl/CppGetTime.htm
   static std::string GetTime() noexcept;
-
-  #ifndef NDEBUG
-  static void Test() noexcept;
-  #endif
-
-
 };
 
 } //~namespace c2h

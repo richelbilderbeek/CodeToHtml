@@ -85,55 +85,6 @@ bool ribi::c2h::IsTidyInstalled()
 }
 #endif
 
-
-#ifndef NDEBUG
-void ribi::c2h::Test()
-{
-  {
-    static bool is_tested{false};
-    if (is_tested) return;
-    is_tested = true;
-  }
-
-  //Test SortedFiles
-  {
-    const std::vector<std::string> result
-      =
-      {
-        "a.pro",
-        "b.pro",
-        "c.pro",
-        "d.pro",
-        "e.pro",
-        "a.pri",
-        "b.pri",
-        "a.h",
-        "a.cpp",
-        "b.h",
-        "b.cpp",
-        "c.h",
-        "c.cpp",
-        "d.h",
-        "d.cpp",
-        "e.h",
-        "e.cpp",
-        "a.sh",
-        "b.sh",
-        "c.sh",
-        "d.sh",
-        "e.sh"
-      };
-    std::vector<std::string> v = result;
-    v.push_back("x.txt"); //Text files should be filtered away
-    v.push_back("y.txt"); //Text files should be filtered away
-    std::random_shuffle(std::begin(v),std::end(v));
-    v = SortFiles(FilterFiles(v));
-    assert(v == result);
-  }
-
-}
-#endif
-
 std::vector<std::string> ribi::c2h::GetSortedFilesInFolder(const std::string& folder) noexcept
 {
   std::vector<std::string> files {

@@ -9,9 +9,9 @@
 #include "codetohtmlmenudialog.h"
 #include "qtaboutdialog.h"
 #include "qtcodetohtmlmaindialog.h"
-#include "testtimer.h"
+
 #include "qthideandshowdialog.h"
-#include "trace.h"
+
 #include "ui_qtcodetohtmlmenudialog.h"
 #pragma GCC diagnostic pop
 

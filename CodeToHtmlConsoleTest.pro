@@ -1,18 +1,22 @@
+include(../RibiLibraries/ConsoleApplication.pri)
+
+include(../RibiLibraries/Boost.pri)
+
 include(../RibiClasses/CppAbout/CppAbout.pri)
 include(../RibiClasses/CppFileIo/CppFileIo.pri)
 include(../RibiClasses/CppHelp/CppHelp.pri)
 include(../RibiClasses/CppMenuDialog/CppMenuDialog.pri)
-include(../RibiClasses/CppQtAboutDialog/CppQtAboutDialog.pri)
-include(../RibiClasses/CppQtHideAndShowDialog/CppQtHideAndShowDialog.pri)
 include(../RibiClasses/CppContainer/CppContainer.pri)
-include(CppCodeToHtml.pri)
 include(../RibiClasses/CppFuzzy_equal_to/CppFuzzy_equal_to.pri)
+
+include(CppCodeToHtml.pri)
 include(../RibiClasses/CppQrcFile/CppQrcFile.pri)
 include(../RibiClasses/CppQtCreatorProFile/CppQtCreatorProFile.pri)
 
-include(CodeToHtmlDesktop.pri)
+include(CodeToHtmlConsole.pri)
+include(CodeToHtmlConsoleTest.pri)
 
-SOURCES += qtmain.cpp
+SOURCES += main_test.cpp
 
 # C++14
 CONFIG += c++14
@@ -55,7 +59,7 @@ CONFIG(debug, debug|release) {
 }
 
 # Qt
-QT += core gui widgets
+QT += core gui
 
 # Prevent Qt for failing with this error:
 # qrc_[*].cpp:400:44: error: ‘qInitResources_[*]__init_variable__’ defined but not used
@@ -68,16 +72,12 @@ QMAKE_CXXFLAGS += -Wno-unused-variable
 #   ^
 QMAKE_CXXFLAGS += -fext-numeric-literals
 
+# Boost.Test
+LIBS += -lboost_unit_test_framework
+
 message(Host name: $$QMAKE_HOST.name)
 contains(QMAKE_HOST.name,pc-157-103) {
   message("Host is university computer in the canteen")
-  QMAKE_CXX = g++-5
-  QMAKE_LINK = g++-5
-  QMAKE_CC = gcc-5
-}
-
-contains(QMAKE_HOST.name,fwn-biol-132-102) {
-  message("Host is university computer in my office")
   QMAKE_CXX = g++-5
   QMAKE_LINK = g++-5
   QMAKE_CC = gcc-5

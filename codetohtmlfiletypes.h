@@ -41,11 +41,6 @@ struct FileTypes
   std::string FileTypeToStr(const FileType t) const noexcept;
   std::vector<FileType> GetAllFileTypes() const noexcept;
   FileType StrToFileType(const std::string& s) const noexcept;
-
-  private:
-  #ifndef NDEBUG
-  static void Test() noexcept;
-  #endif
 };
 
 } //~namespace ribi

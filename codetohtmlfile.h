@@ -70,10 +70,6 @@ struct File
   static std::vector<std::string> CreateHtml(
     const std::string& filename,
     const FileType content_type) noexcept;
-
-  #ifndef NDEBUG
-  static void Test() noexcept;
-  #endif
 };
 
 } //~namespace c2h

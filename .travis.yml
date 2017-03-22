@@ -36,14 +36,19 @@ before_script:
   - sleep 3 # give xvfb some time to start
 
 script: 
+  # Console test
+  - qmake -qt=qt5 CodeToHtmlConsoleTest.pro
+  - make debug
+  - ./CodeToHtmlConsoleTest
   # Console
-  - qmake CodeToHtmlConsole.pro
-  - make
+  - qmake -qt=qt5 CodeToHtmlConsole.pro
+  - make debug
   - ./CodeToHtmlConsole --about
   # Desktop
-  - qmake CodeToHtmlDesktop.pro
-  - make
+  - qmake -qt=qt5 CodeToHtmlDesktop.pro
+  - make debug
   - ./CodeToHtmlDesktop &
+  - sleep 10
   - sudo killall CodeToHtmlDesktop
   # Get code coverage
   - ./get_code_cov

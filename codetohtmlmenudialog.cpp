@@ -1,23 +1,3 @@
-//---------------------------------------------------------------------------
-/*
-CodeToHtml, converts C++ code to HTML
-Copyright (C) 2010-2015 Richel Bilderbeek
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.If not, see <http://www.gnu.org/licenses/>.
-*/
-//---------------------------------------------------------------------------
-//From http://www.richelbilderbeek.nl/ToolCodeToHtml.htm
-//---------------------------------------------------------------------------
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Weffc++"
 #pragma GCC diagnostic ignored "-Wunused-local-typedefs"
@@ -38,15 +18,11 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 #include "fileio.h"
 #include "qrcfile.h"
 #include "qtcreatorprofile.h"
-
-
 #pragma GCC diagnostic pop
 
 ribi::c2h::CodeToHtmlMenuDialog::CodeToHtmlMenuDialog()
 {
-  #ifndef NDEBUG
-  Test();
-  #endif
+
 }
 
 int ribi::c2h::CodeToHtmlMenuDialog::ExecuteSpecific(const std::vector<std::string>& argv) noexcept
@@ -130,12 +106,12 @@ int ribi::c2h::CodeToHtmlMenuDialog::ExecuteSpecific(const std::vector<std::stri
 
   try
   {
-    const std::vector<std::string> v = f(&d,source);
+    const std::vector<std::string> w = f(&d,source);
     const std::string output_filename = ribi::fileio::FileIo().GetFileBasename(source) + ".htm";
     assert(output_filename != ".htm");
     std::cout << "Output written to '" << output_filename << "'" << std::endl;
-    std::ofstream f(output_filename.c_str());
-    std::copy(v.begin(),v.end(),std::ostream_iterator<std::string>(f,"\n"));
+    std::ofstream g(output_filename.c_str());
+    std::copy(w.begin(),w.end(),std::ostream_iterator<std::string>(g,"\n"));
     std::cout << "CodeToHtml succeeded" << std::endl;
     return 0;
   }
@@ -238,32 +214,3 @@ std::vector<std::string> ribi::c2h::CodeToHtmlMenuDialog::GetVersionHistory() co
   };
   return v;
 }
-
-#ifndef NDEBUG
-void ribi::c2h::CodeToHtmlMenuDialog::Test() noexcept
-{
-  {
-    static bool is_tested{false};
-    if (is_tested) return;
-    is_tested = true;
-  }
-  {
-    fileio::FileIo();
-    { boost::shared_ptr<c2h::Info> info(new c2h::Info); }
-    try { QrcFile(""); } catch(std::logic_error&) { /* OK */ };
-    try {  boost::shared_ptr<QtCreatorProFile> p{new QtCreatorProFile("")}; } catch(std::logic_error&) { /* OK */ };
-    ribi::c2h::Dialog();
-  }
-
-  {
-    const boost::shared_ptr<const c2h::Info> info(new c2h::Info);
-    const std::vector<std::string> html {
-      info->ToHtml("non_existing_page_762538762539827382309728")
-    };
-    assert(html.size() == 1);
-    const std::string no_info_str = "<!-- No CodeToHtmlInfo about this class";
-    const std::string html_str = html[0];
-    assert(html_str.substr(0,no_info_str.size()) == no_info_str);
-  }
-}
-#endif

@@ -44,9 +44,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 ribi::c2h::File::File(const std::string& filename)
   : m_html(CreateHtml(filename,FileTypes().DeduceFileType(filename)))
 {
-  #ifndef NDEBUG
-  Test();
-  #endif
+
 }
 
 ribi::c2h::File::File(
@@ -54,9 +52,7 @@ ribi::c2h::File::File(
   const FileType content_type)
     : m_html(CreateHtml(filename,content_type))
 {
-  #ifndef NDEBUG
-  Test();
-  #endif
+
 }
 
 std::vector<std::string> ribi::c2h::File::CreateHtml(
@@ -137,16 +133,3 @@ std::vector<std::string> ribi::c2h::File::CreateHtml(
   return v;
 }
 
-#ifndef NDEBUG
-void ribi::c2h::File::Test() noexcept
-{
-  {
-    static bool is_tested{false};
-    if (is_tested) return;
-    is_tested = true;
-  }
-  ribi::fileio::FileIo();
-  Replacer();
-  
-}
-#endif

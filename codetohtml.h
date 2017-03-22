@@ -37,11 +37,6 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 namespace ribi {
 namespace c2h {
 
-  #ifndef NDEBUG
-  ///Test these functions
-  void Test();
-  #endif
-
   ///Convert a code snippet
   std::vector<std::string> ConvertCodeSnippet(
     const std::vector<std::string>& code,

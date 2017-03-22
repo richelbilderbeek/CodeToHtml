@@ -19,6 +19,7 @@
 #include <boost/lexical_cast.hpp>
 
 #include <QDesktopWidget>
+#include <QDebug>
 #include <QFile>
 #include <QKeyEvent>
 #include <QTextBlock>
@@ -30,8 +31,6 @@
 #include "codetohtmldialog.h"
 #include "fileio.h"
 #include "qtaboutdialog.h"
-#include "trace.h"
-#include "testtimer.h"
 #include "ui_qtcodetohtmlmaindialog.h"
 #pragma GCC diagnostic pop
 
@@ -39,9 +38,6 @@ ribi::c2h::QtCodeToHtmlMainDialog::QtCodeToHtmlMainDialog(QWidget *parent) noexc
   : QtHideAndShowDialog(parent),
     ui(new Ui::QtCodeToHtmlMainDialog)
 {
-  #ifndef NDEBUG
-  Test();
-  #endif
   ui->setupUi(this);
 
   //Put this dialog in the screen center
@@ -76,9 +72,7 @@ std::vector<std::string> ribi::c2h::QtCodeToHtmlMainDialog::EditToVector(
     const QTextBlock block = doc->findBlockByNumber(i);
     if (!block.isValid())
     {
-      std::stringstream warning;
-      warning  << "block #" << i << " is not valid and is skipped...";
-      TRACE(warning.str());
+      qWarning() << "block #" << i << " is not valid and is skipped...";
       continue;
     }
     assert(block.isValid());
@@ -202,51 +196,3 @@ void ribi::c2h::QtCodeToHtmlMainDialog::on_edit_source_textChanged(QString ) noe
     ui->button_convert->setEnabled(true);
   }
 }
-
-#ifndef NDEBUG
-void ribi::c2h::QtCodeToHtmlMainDialog::Test() noexcept
-{
-  {
-    static bool is_tested{false};
-    if (is_tested) return;
-    is_tested = true;
-  }
-  {
-    ribi::fileio::FileIo();
-    Dialog();
-  }
-  const TestTimer test_timer(__func__,__FILE__,1.0);
-  //IsRegularFile
-  {
-    assert(!ribi::fileio::FileIo().IsRegularFile("../ToolCodeToHtml"));
-  }
-  {
-    QtCodeToHtmlMainDialog d;
-    for (int index = 0; index != 2; ++index)
-    {
-      d.ui->tab_source->setCurrentIndex(index);
-      for (const std::string& s:
-        {
-          "/home/richel/ProjectRichelBilderbeek/Tools/ToolTestAbout",
-          "D:/Projects/Tools/ToolTestAbout",
-          "D:\\Projects\\Tools\\ToolTestAbout",
-          "D:/Projects/Test/ToolTestAbout",
-          "D:\\Projects\\Test\\ToolTestAbout",
-          //"../../Tools/ToolCodeToHtml",
-          "..\\..\\Tools\\ToolTestAbout",
-          "../../Tools/ToolTestAbout",
-          "..\\..\\Tools\\ToolTestAbout",
-          "/home/richel/ProjectRichelBilderbeek/Test/ToolTestAbout"
-        }
-      )
-      {
-        d.ui->edit_source->setText(s.c_str());
-        if (d.ui->button_convert->isEnabled())
-        {
-          d.on_button_convert_clicked();
-        }
-      }
-    }
-  }
-}
-#endif
