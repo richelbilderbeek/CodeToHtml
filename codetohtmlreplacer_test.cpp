@@ -1,5 +1,6 @@
 #include "codetohtmlreplacer.h"
 
+#include <iostream>
 #include <boost/test/unit_test.hpp>
 
 #include "codetohtmlreplacements.h"
