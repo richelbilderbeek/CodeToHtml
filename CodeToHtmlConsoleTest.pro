@@ -18,10 +18,6 @@ include(CodeToHtmlConsoleTest.pri)
 
 SOURCES += main_test.cpp
 
-# C++14
-CONFIG += c++14
-QMAKE_CXXFLAGS += -std=c++14
-
 # High warning levels
 # Qt does not go well with -Weffc++
 QMAKE_CXXFLAGS += -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic -Werror
@@ -74,11 +70,3 @@ QMAKE_CXXFLAGS += -fext-numeric-literals
 
 # Boost.Test
 LIBS += -lboost_unit_test_framework
-
-message(Host name: $$QMAKE_HOST.name)
-contains(QMAKE_HOST.name,pc-157-103) {
-  message("Host is university computer in the canteen")
-  QMAKE_CXX = g++-5
-  QMAKE_LINK = g++-5
-  QMAKE_CC = gcc-5
-}
