@@ -84,11 +84,9 @@ std::vector<std::string> ribi::c2h::File::CreateHtml(
       v.push_back("<h2>" + filename + "</h2>");
     break;
     case FileType::license_txt:
-      assert(!"Should not HTML-ify FileType::license_txt");
-      throw std::logic_error("Should not HTML-ify FileType::license_txt");
+      assert(false);
     case FileType::n_types:
-      assert(!"Should never use FileType::n_types");
-      throw std::logic_error("Should never use FileType::n_types");
+      assert(false);
   }
 
   //Add end of heading
