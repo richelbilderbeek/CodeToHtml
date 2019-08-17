@@ -1,5 +1,3 @@
-include(../RibiLibraries/ConsoleApplication.pri)
-
 include(../RibiLibraries/Boost.pri)
 
 include(../RibiClasses/CppAbout/CppAbout.pri)

@@ -2,6 +2,7 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include <iostream>
 #include <fstream>
 #include "fileio.h"
 #include "container.h"
