@@ -111,11 +111,9 @@ std::string ribi::c2h::FileTypes::FileTypeToStr(const FileType t) const noexcept
     case FileType::sh: return "sh";
     case FileType::txt: return "txt";
     case FileType::n_types:
-      assert(!"Should never use FileType::n_types");
-      throw std::logic_error("Must never use FileType::n_types");
+      assert(false);
   }
-  assert(!"Should not get here");
-  throw std::logic_error("c2h::FileTypeToStr");
+  assert(false);
 }
 
 std::vector<ribi::c2h::FileType> ribi::c2h::FileTypes::GetAllFileTypes() const noexcept
@@ -146,9 +144,7 @@ ribi::c2h::FileType ribi::c2h::FileTypes::StrToFileType(const std::string& s) co
   if (s == "txt") return FileType::txt;
   if (s == "n_types")
   {
-    assert(!"Should not use FileType::n_types");
-    throw std::logic_error("Must not use FileType::n_types");
+    assert(false);
   }
-  assert(!"StrToFileType: should not get here");
-  throw std::logic_error("Invalid string in StrToFileType");
+  assert(false);
 }

@@ -32,7 +32,7 @@ bool ribi::c2h::SnippetTypes::CanStrToSnippetType(const std::string& s)
     StrToSnippetType(s);
     return true;
   }
-  catch (std::logic_error&)
+  catch (const std::logic_error&)
   {
     return false;
   }
@@ -45,11 +45,9 @@ std::string ribi::c2h::SnippetTypes::SnippetTypeToStr(const SnippetType t) noexc
     case SnippetType::cpp: return "cpp";
     case SnippetType::text: return "text";
     case SnippetType::n_snippets:
-      assert(!"Never use SnippetType::n_snippets");
-      throw std::logic_error("Never use SnippetType::n_snippets");
+      assert(false);
   }
-  assert(!"Should not get here");
-  throw std::logic_error("c2h::SnippetTypeToStr");
+  assert(false);
 }
 
 std::vector<ribi::c2h::SnippetType> ribi::c2h::SnippetTypes::GetAllSnippetTypes() noexcept
