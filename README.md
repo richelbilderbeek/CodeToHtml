@@ -1,6 +1,7 @@
 # CodeToHtml
 
-[Go to the nicely rendered website](https://richelbilderbeek.github.io/CodeToHtml/).
+[Go to the nicely rendered
+website](https://richelbilderbeek.github.io/CodeToHtml/).
 
 Branch|[![Travis CI logo](TravisCI.png)](https://travis-ci.org)|[![Codecov logo](Codecov.png)](https://www.codecov.io)
 ---|---|---
